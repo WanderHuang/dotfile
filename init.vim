@@ -130,11 +130,11 @@ let g:syntastic_check_on_wq = 0
 " :CocInstall coc-eslint
 
 " Use <c-m> to trigger completion. 代码补全
-if has('nvim')
-   inoremap <silent><expr> <c-m> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" if has('nvim')
+"    inoremap <silent><expr> <c-m> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
 
 " Highlight the symbol and its references when holding the cursor. cursor高亮
 autocmd CursorHold * silent call CocActionAsync('highlight')
