@@ -1,17 +1,17 @@
 inoremap jk <ESC>
-set encoding=UTF-8
-" let mapleader="\<Space>"
+set encoding=UTF-8 " let mapleader="\<Space>"
 let mapleader="'"
 syntax on
 set number
 set hlsearch
 set ignorecase
 set incsearch
-set autoindent
-set smartindent
+" set autoindent
+" set smartindent
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+set expandtab
 " set spell spelllang=en_us
 
 
@@ -65,6 +65,7 @@ Plug 'vim-syntastic/syntastic'
 
 " 缩进对齐
 Plug 'Yggdroot/indentLine'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
 " snippets
 Plug 'honza/vim-snippets'
@@ -89,15 +90,33 @@ Plug 'pechorin/any-jump.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+" 色彩
+" Plug 'norcalli/nvim-colorizer.lua'
+
+" 等号对其 强迫症福利
+" :EasyAlign *=
+Plug 'junegunn/vim-easy-align'
+
+" 自动import
+Plug 'hrsh7th/nvim-compe'
 call plug#end()
 
 " gruvbox主题色
 colorscheme gruvbox" gruvbox PaperColor
 set background=light "dark or light
 
+" =================================
+" 键位映射
+" =================================
 "vnoremap <D-c> y
 " 选中情况下复制
 vnoremap <C-c> "+y
+" 下一页，buffer翻页
+map gn :bn<cr>
+" 上一页，buffer翻页
+map gp :bp<cr>
+" 关闭当前buffer
+map <leader>w :bd<cr>
 
 
 " nerdtree 设置
@@ -111,7 +130,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " 忽略文件夹
 let g:airline#extensions#tabline#enabled = 1 " 打开tabline
 let g:airline_powerline_fonts = 1 " 字体设置
 " 字体设置
-set guifont=DroidSansMono\ Nerd\ Font:h11
+set guifont=DroidSansMono\ Nerd\ Font:h16
 
 " syntastic 配置
 set statusline+=%#warningmsg#
@@ -131,7 +150,7 @@ let g:syntastic_check_on_wq = 0
 
 " Use <c-m> to trigger completion. 代码补全
 " if has('nvim')
-"    inoremap <silent><expr> <c-m> coc#refresh()
+"   inoremap <silent><expr> <c-m> coc#refresh()
 " else
 "   inoremap <silent><expr> <c-@> coc#refresh()
 " endif
@@ -139,8 +158,8 @@ let g:syntastic_check_on_wq = 0
 " Highlight the symbol and its references when holding the cursor. cursor高亮
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Formatting selected code. 格式化
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <C-f>  <Plug>(coc-format-selected)
+" nmap <C-f>  <Plug>(coc-format-selected)
 imap <M-S-f> <ESC>:CocCommand prettier.formatFile<CR>
 nmap <M-S-f> <ESC>:CocCommand prettier.formatFile<CR>
 
@@ -212,6 +231,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 " 快速选中一个片段 <leader>aap 快速选中当前段
+" 比如执行格式化、添加注释、应用hints
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
@@ -289,7 +309,8 @@ au FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
 " brew install the_silver_searcher
 " brew install fzf
 " export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-nnoremap <D-S-f> :Ag<space>
+" nmap <D-S-f> :Ag<space>
+nmap <C-f> :Ag<space>
 
 
 " git/blamer配置
@@ -299,8 +320,10 @@ let g:blamer_enabled = 1
 " inoremap <Enter> <M-Enter>
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
+" 使用ctrl + s保存
+imap <C-s> <Esc>:w<CR>
 
-
-
-
-
+" indentLine配置
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_leadingSpaceEnabled = 0 " 有点难看，先禁用
+let g:indentLine_leadingSpaceChar = '·'
