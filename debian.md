@@ -9,6 +9,7 @@ sudo apt-get install net-tools
 sudo apt-get install nodejs
 sudo apt-get install git
 sudo apt-get install zsh
+sudo apt-get install tmux
 ```
 
 ### 终端
@@ -20,3 +21,9 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 git clone git://github.com/jeremyFreeAgent/oh-my-zsh-powerline-theme
 sudo ./oh-my-zsh-powerline-theme/install.sh 
 ```
+
+终端使用`windows terminal`，使用`windows terminal -> 设置`修改配置
+
+### 编辑器
+
+`vim`
