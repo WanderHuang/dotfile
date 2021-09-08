@@ -11,6 +11,8 @@ sudo apt-get install git
 sudo apt-get install zsh
 sudo apt-get install tmux
 sudo apt-get install fzf
+# ag
+sudo apt-get install silversearcher-ag
 ```
 
 ### 终端
