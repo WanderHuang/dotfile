@@ -8,6 +8,7 @@ sudo apt-get install curl
 sudo apt-get install net-tools
 sudo apt-get install nodejs
 sudo apt-get install git
+sudo apt-get install gitui
 sudo apt-get install zsh
 sudo apt-get install tmux
 sudo apt-get install fzf
