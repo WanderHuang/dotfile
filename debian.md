@@ -10,6 +10,7 @@ sudo apt-get install nodejs
 sudo apt-get install git
 sudo apt-get install zsh
 sudo apt-get install tmux
+sudo apt-get install fzf
 ```
 
 ### 终端
@@ -27,3 +28,10 @@ sudo ./oh-my-zsh-powerline-theme/install.sh
 ### 编辑器
 
 `vim`
+
+### git
+
+```sh
+# 分支图
+alias gog = "git log --all --decorate --oneline --graph"
+```
