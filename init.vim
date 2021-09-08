@@ -1,4 +1,6 @@
 inoremap jk <ESC>
+" 设置git的编辑器为vim，环境变量设置
+" export GIT_EDITOR="vim"
 set encoding=UTF-8 " let mapleader="\<Space>"
 let mapleader="'"
 syntax on
