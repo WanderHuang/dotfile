@@ -1,4 +1,9 @@
 inoremap jk <ESC>
+" 基本文本编辑
+" - 前端开发
+" - Rust
+" - Haskell
+" - LaTex
 " 设置使用nvim
 " alias vim="nvim"
 " 设置git的编辑器为vim，环境变量设置
