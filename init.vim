@@ -1,13 +1,4 @@
 inoremap jk <ESC>
-" 基本文本编辑
-" - 前端开发
-" - Rust
-" - Haskell
-" - LaTex
-" 设置使用nvim
-" alias vim="nvim"
-" 设置git的编辑器为vim，环境变量设置
-" export GIT_EDITOR="vim"
 set encoding=UTF-8 " let mapleader="\<Space>"
 let mapleader="'"
 syntax on
@@ -25,7 +16,7 @@ set expandtab
 
 
 " 使用vim-plug管理插件
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
 
 " 主题
 Plug 'morhetz/gruvbox'
@@ -50,6 +41,7 @@ Plug 'vim-airline/vim-airline-themes'
 " git相关
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim' " git lens
+Plug 'tpope/vim-fugitive'
 
 " 代码调试
 " 安装 :CocInstall coc-snippets
@@ -109,12 +101,25 @@ Plug 'junegunn/vim-easy-align'
 " 自动import
 Plug 'hrsh7th/nvim-compe'
 " latex
+" 需要配合安装:CocInstall coc-vimtex 提供语法提示
 Plug 'lervag/vimtex'
+
+" markdown语法高亮和快捷键
+" zr 打开下一级
+" zR 打开所有折叠
+" zm 折叠当前
+" zM 折叠所有
+" :Toc 显示目录
+" [[  ]]跳转标题
+" 使用起来有````丢失的情况，难用
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
+"
 call plug#end()
 
 " gruvbox主题色
 colorscheme gruvbox" gruvbox PaperColor
-set background=light "dark or light
+set background=dark "dark or light
 
 " =================================
 " 键位映射
@@ -341,15 +346,16 @@ let g:indentLine_leadingSpaceChar = '·'
 
 " latex配置
 "
-let g:tex_flavor = 'latex' " 使用latex风格
+let g:tex_flavor = 'xelatex' " 使用latex风格
 let g:vimtex_quickfix_mod = 0 " 自动打开错误提示
 
+" 需要安装skim.app
 let g:vimtex_view_general_viewer
 \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 
 " This adds a callback hook that updates Skim after compilation
-let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
+" let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
 
 function! UpdateSkim(status)
 if !a:status | return | endif
@@ -371,4 +377,24 @@ call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' 
 endif
 endfunction
 
-let g:syntastic_tex_checkers = ['lacheck']
+let g:syntastic_tex_checkers = ['lacheck', 'chktex', 'language_check']
+" 关掉vimtex conceal
+let g:vimtex_syntax_conceal_default = 0
+let g:vimtex_view_automatic = 0
+
+
+
+" 自动编译
+autocmd FileType tex imap <buffer> <leader>s <ESC>:w<CR>\ll
+autocmd FileType tex nmap <buffer> <leader>s :w<CR>\ll
+" 查看效果
+autocmd FileType tex nmap <buffer> <leader>v \lv
+" lacheck有问题
+function! LatexCloseCheck()
+  execute ':SyntasticToggleMode'
+endfunction
+autocmd FileType tex call LatexCloseCheck()
+
+
+" vim-markdown配置
+" let g:vim_markdown_conceal = 0
