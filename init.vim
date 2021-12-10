@@ -377,6 +377,7 @@ call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' 
 endif
 endfunction
 
+let g:vimtex_compiler_latexmk = { 'executable': 'latexmk', 'options': ['-xelatex', '-file-line-error', '-synctex=1', '-interaction=nonstopmode'] }
 let g:syntastic_tex_checkers = ['lacheck', 'chktex', 'language_check']
 " 关掉vimtex conceal
 let g:vimtex_syntax_conceal_default = 0
@@ -394,6 +395,8 @@ function! LatexCloseCheck()
   execute ':SyntasticToggleMode'
 endfunction
 autocmd FileType tex call LatexCloseCheck()
+
+let NERDTreeIgnore=['\.aux$', '\.fls$', '\.fdb_latexmk', '\.synctex.gz', '\.synctex(busy)', '\.xdv', 'missfont.log', '.*-.*.log$', '\.pdf$']
 
 
 " vim-markdown配置
