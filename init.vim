@@ -355,7 +355,10 @@ let g:vimtex_view_general_viewer
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 
 " This adds a callback hook that updates Skim after compilation
+" 这个命令deprecated了
 " let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
+" 忽略编译警告
+let g:vimtex_quickfix_open_on_warning = 0
 
 function! UpdateSkim(status)
 if !a:status | return | endif
@@ -377,7 +380,9 @@ call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' 
 endif
 endfunction
 
-let g:vimtex_compiler_latexmk = { 'executable': 'latexmk', 'options': ['-xelatex', '-file-line-error', '-synctex=1', '-interaction=nonstopmode'] }
+" -shell-escape方便在命令中调用python的代码格式化工具
+"  相关的latex宏包markdown、minted
+let g:vimtex_compiler_latexmk = { 'executable': 'latexmk', 'options': ['-xelatex', '-file-line-error', '-synctex=1', '-interaction=nonstopmode', '-shell-escape'] }
 let g:syntastic_tex_checkers = ['lacheck', 'chktex', 'language_check']
 " 关掉vimtex conceal
 let g:vimtex_syntax_conceal_default = 0
@@ -385,10 +390,10 @@ let g:vimtex_view_automatic = 0
 
 
 
-" 自动编译
-autocmd FileType tex imap <buffer> <leader>s <ESC>:w<CR>\ll
-autocmd FileType tex nmap <buffer> <leader>s :w<CR>\ll
-" 查看效果
+" 自动编译 latexmk会检测tex文件变更后自动执行编译，这里的命令没有用
+" autocmd FileType tex imap <buffer> <leader>s <ESC>:w<CR>\ll
+" autocmd FileType tex nmap <buffer> <leader>s :w<CR>\ll
+" 查看效果 等待compile completed就可以查看文件了
 autocmd FileType tex nmap <buffer> <leader>v \lv
 " lacheck有问题
 function! LatexCloseCheck()
@@ -396,7 +401,7 @@ function! LatexCloseCheck()
 endfunction
 autocmd FileType tex call LatexCloseCheck()
 
-let NERDTreeIgnore=['\.aux$', '\.fls$', '\.fdb_latexmk', '\.synctex.gz', '\.synctex(busy)', '\.xdv', 'missfont.log', '.*-.*.log$', '\.pdf$']
+let NERDTreeIgnore=['\.aux$', '\.fls$', '\.fdb_latexmk', '\.synctex.gz', '\.synctex(busy)', '\.xdv', 'missfont.log', '.*-.*.log$', '\.pdf$', '\.DS_Store$']
 
 
 " vim-markdown配置
