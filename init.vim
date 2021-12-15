@@ -39,9 +39,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " git相关
-Plug 'airblade/vim-gitgutter'
-Plug 'APZelos/blamer.nvim' " git lens
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter' " 在当前buffer显示新增的行、删除的行
+Plug 'APZelos/blamer.nvim' " git lens 当前行的commit信息
+Plug 'tpope/vim-fugitive' " vim中使用git命令 :Git log
 
 " 代码调试
 " 安装 :CocInstall coc-snippets
