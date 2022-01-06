@@ -39,9 +39,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " git相关
-Plug 'airblade/vim-gitgutter' " 在当前buffer显示新增的行、删除的行
-Plug 'APZelos/blamer.nvim' " git lens 当前行的commit信息
-Plug 'tpope/vim-fugitive' " vim中使用git命令 :Git log
+Plug 'airblade/vim-gitgutter'
+Plug 'APZelos/blamer.nvim' " git lens
+Plug 'tpope/vim-fugitive'
 
 " 代码调试
 " 安装 :CocInstall coc-snippets
@@ -127,6 +127,8 @@ set background=dark "dark or light
 "vnoremap <D-c> y
 " 选中情况下复制
 vnoremap <C-c> "+y
+nmap <leader>o o<ESC>
+nmap <leader>O O<ESC>
 " 下一页，buffer翻页
 map gn :bn<cr>
 " 上一页，buffer翻页
@@ -228,6 +230,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 " K调用查看文档注释
+" 文档显示滚动 coc显示了一个popup，用c-j / c-k 滚动
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -238,6 +241,8 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+
 
 " Formatting selected code.
 " 选中的代码格式化
@@ -272,14 +277,13 @@ omap ac <Plug>(coc-classobj-a)
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 " 浮窗滚动
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(2) : "\<C-j>"
+  nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
+  inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
+  vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
 endif
-
 " Mappings for CoCList
 " Show all diagnostics.
 " 显示诊断
@@ -343,6 +347,12 @@ imap <C-s> <Esc>:w<CR>
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_leadingSpaceEnabled = 0 " 有点难看，先禁用
 let g:indentLine_leadingSpaceChar = '·'
+" 这两个没有生效，indentLine_setConceal=0生效了
+" let g:vim_markdown_conceal = 0
+" let g:vim_markdown_conceal_code_blocks = 0
+" au FileType markdown let g:indentLine_setConceal= 0
+let g:indentLine_fileTypeExclude = ['markdown', 'latex']
+
 
 " latex配置
 "
@@ -401,7 +411,7 @@ function! LatexCloseCheck()
 endfunction
 autocmd FileType tex call LatexCloseCheck()
 
-let NERDTreeIgnore=['\.aux$', '\.fls$', '\.fdb_latexmk', '\.synctex.gz', '\.synctex(busy)', '\.xdv', 'missfont.log', '.*-.*.log$', '\.pdf$', '\.DS_Store$']
+let NERDTreeIgnore=['\.aux$', '\.fls$', '\.fdb_latexmk', '\.synctex.gz', '\.synctex(busy)', '\.xdv', 'missfont.log', '.*-.*.log$', '\.pdf$', '\.DS_Store$', '_.*-.*[[path]]', '\.lua$', '\.out$', '\.in$']
 
 
 " vim-markdown配置
