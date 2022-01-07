@@ -115,6 +115,8 @@ Plug 'lervag/vimtex'
 " Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
 "
+" toml 语法高亮
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 call plug#end()
 
 " gruvbox主题色
