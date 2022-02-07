@@ -1,0 +1,4 @@
+alias vim="nvim"
+export GIT_EDITOR="vim"
+alias gog="git log --all --decorate --oneline --graph"
+export PATH=/Users/hjj/.local/bin:$PATH
